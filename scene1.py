@@ -1,6 +1,6 @@
 import manim
 import numpy
-
+import random
 
 class EncodeText(manim.Scene):
 
@@ -338,7 +338,7 @@ How ill white hairs become a fool and jester!
 46 43 43 1 52 53 58 6 1 53 50 42 1 51 39 52 8 1 18 39 50 50 1 58 53 1
 58 46 63 1 54 56 39 63 43 56 57 8 1 20 53 61 1 47 50 50 1 61 46 47 58
 43 1 46 39 47 56 57 1 40 43 41 53 51 43 1 39 1 44 53 53 50 1 39 52 42
-1 48 43 57 58 43 56 2]"""
+1 48 43 57 58 43 56 2 ]"""
         doc2 = manim.Code(
             code=doc2_text,
             background="window",
@@ -360,24 +360,45 @@ How ill white hairs become a fool and jester!
         # function that describes the likelihood
         # each token occurs in a certain place
         # in the document
-        doc2[2][3][57:60].set_color(color='#269a43')
-        self.play(manim.ReplacementTransform(doc1, doc2))
-        self.wait(3)
+        # doc2[2][3][57:60].set_color(color='#269a43')
+        # self.play(manim.ReplacementTransform(doc1, doc2))
+        # self.wait(3)
 
         doc2_text_ptr = [[],[],[
-            ['18 39 50 57 58 39 44 44 10 1 25 63 1 49 47 52 45 6 1 51 63 1 22 53 60'],
-            ['43 2 1 21 1 57 54 43 39 49 1 58 53 1 58 46 43 43 6 1 51 63 1 46 43 39'],
-            ['56 58 2 1 23 47 52 45 1 20 43 52 56 63 1 34 10 1 21 1 49 52 53 61 1 58'],
-            ['46 43 43 1 52 53 58 6 1 53 50 42 1 51 39 52 8 1 18 39 50 50 1 58 53 1'],
-            ['58 46 63 1 54 56 39 63 43 56 57 8 1 20 53 61 1 47 50 50 1 61 46 47 58'],
-            ['43 1 46 39 47 56 57 1 40 43 41 53 51 43 1 39 1 44 53 53 50 1 39 52 42'],
-            ['1 48 43 57 58 43 56 2']
+            ['[18 39 50 57 58 39 44 44 10 1 25 63 1 49 47 52 45 6 1 51 63 1 22 53 60 '],
+            ['43 2 1 21 1 57 54 43 39 49 1 58 53 1 58 46 43 43 6 1 51 63 1 46 43 39 '],
+            ['56 58 2 1 23 47 52 45 1 20 43 52 56 63 1 34 10 1 21 1 49 52 53 61 1 58 '],
+            ['46 43 43 1 52 53 58 6 1 53 50 42 1 51 39 52 8 1 18 39 50 50 1 58 53 1 '],
+            ['58 46 63 1 54 56 39 63 43 56 57 8 1 20 53 61 1 47 50 50 1 61 46 47 58 '],
+            ['43 1 46 39 47 56 57 1 40 43 41 53 51 43 1 39 1 44 53 53 50 1 39 52 42 '],
+            ['1 48 43 57 58 43 56 2 ]']
         ]]
         # for loop through doc2_text and randomly color "50"
         # "each occurrence of the letter 'l' begins to take on its own encoding"
-        for idx,item in enumerate(doc2_text_ptr[2][1]):
-            print(f'evaluating {idx},{item}')
-            if item == "1":
-                doc2[2][1][idx-1:idx+1].set_color(color='#269a43')
+        # set a last_item pointer
+        last_item = ''
+        # iterate through the range of nested lists in doc2_text_ptr
+        for j in range(len(doc2_text_ptr[2])):
+            # enumerate the pointer list
+            for idx,item in enumerate(doc2_text_ptr[2][j][0]):
+                # if the current and last tokens are 5,0
+                if last_item != " " and item == " " and item != "[" and item != "]":
+                    # set the corresponding index in doc2 to a random hex color
+                    colors = ['#3174f0', '#e53125', '#fbb003', '#269a43', '#9c27b0', '#607d8b', '#ffcb6b']
+                    random_color = numpy.random.choice(colors, replace=False)
+                    self.play(manim.Create(doc2[2][j][idx - 2:idx].set_color(color=random_color), run_time=.025))
+                last_item = item
 
-        self.wait(3)
+        self.wait(7)
+        self.play(manim.Uncreate(doc2))
+        self.wait(1)
+
+        # scene 2 begins here
+        # bring back the doc2 as white text
+        # show the computer selecting context starting points
+        # show the computer building a contextual vector
+        # show the vectors as a growing spreadsheet
+        # transform the spreadsheet to 3d
+        # stack multiple spreadsheets together like files or a stack of paper
+        # show how each is connected to the next
+        self.next_section()
