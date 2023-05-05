@@ -1,11 +1,12 @@
 import manim
-
+import numpy
 
 class EncodeText(manim.Scene):
 
     #
     def construct(self):
-        quote = manim.Tex('Fall ', 'to ', 'thy ', 'prayers', '...').scale(1)
+        quote = manim.Tex('\"', 'Fall ', 'to ', 'thy ', 'prayers', '...', '\"').scale(1)
+        quote_name = manim.Tex("- William Shakespeare").shift([3.0,-1.0,0]).scale(.5)
 
         # FADE IN: "Fall to the prayers..."
         # define the animations array as fadein
@@ -14,19 +15,30 @@ class EncodeText(manim.Scene):
             manim.FadeIn(quote[1]),
             manim.FadeIn(quote[2]),
             manim.FadeIn(quote[3]),
-            manim.FadeIn(quote[4])
+            manim.FadeIn(quote[4]),
+            manim.FadeIn(quote[5]),
+            manim.FadeIn(quote[6]),
+            manim.FadeIn(quote_name)
         ]
         # Fade in the animations array
         self.play(manim.AnimationGroup(*animations, lag_ratio=0.2))
         self.wait(5)
 
+        animations = [
+            manim.FadeOut(quote_name),
+            manim.FadeOut(quote[0]),
+            manim.FadeOut(quote[6]),
+        ]
+        self.play(manim.AnimationGroup(*animations))
+        self.wait(2)
+
         # FADE OUT: "Fall to the prayers..."
         animations = [
-            manim.FadeOut(quote[0]),
             manim.FadeOut(quote[1]),
             manim.FadeOut(quote[2]),
             manim.FadeOut(quote[3]),
-            manim.FadeOut(quote[4])
+            manim.FadeOut(quote[4]),
+            manim.FadeOut(quote[5]),
         ]
         self.play(manim.AnimationGroup(*animations))
 
@@ -69,7 +81,26 @@ class EncodeText(manim.Scene):
         self.wait(3)
 
         # FADE OUT: "Fall"
-        self.play(manim.Unwrite(quote[0]))
+        self.play(manim.FadeOut(quote[0], shift=manim.DOWN))
+
+        # FADE IN: Encoding table
+        t1 = manim.Table(
+            [['F', 'a', 'l', 'l'],
+             ['18', '39', '50', '50']],
+            row_labels=[manim.Text("Letters"), manim.Text("Integers")],
+            include_outer_lines=True
+        )
+        t1.add(t1.get_cell((1, 2), color='#3174f0'))
+        t1.add(t1.get_cell((2, 2), color='#3174f0'))
+        t1.add(t1.get_cell((1, 3), color='#e53125'))
+        t1.add(t1.get_cell((2, 3), color='#e53125'))
+        t1.add(t1.get_cell((1, 4), color='#fbb003'))
+        t1.add(t1.get_cell((2, 4), color='#fbb003'))
+        t1.add(t1.get_cell((1, 5), color='#fbb003'))
+        t1.add(t1.get_cell((2, 5), color='#fbb003'))
+        self.play(manim.Write(t1))
+        self.wait(2)
+        self.play(manim.Unwrite(t1))
 
         # FADE IN: "18 39 50 50"
         quote = manim.Tex('18',',','39',',','50',',','50').scale(3)
@@ -82,6 +113,10 @@ class EncodeText(manim.Scene):
             manim.Write(quote[5]),
             manim.Write(quote[6])
         ]
+        quote[0].color = '#3174f0'
+        quote[2].color = '#e53125'
+        quote[4].color = '#fbb003'
+        quote[6].color = '#fbb003'
         self.play(manim.AnimationGroup(*animations, lag_ratio=0))
         self.wait(3)
         # FADE OUT: commas
@@ -92,14 +127,6 @@ class EncodeText(manim.Scene):
         ]
         self.play(manim.AnimationGroup(*animations, lag_ratio=0.2))
         # SPREAD OUT: "18   39   50   50"
-        # self.play(quote[0].shift(manim.LEFT*2))
-        # self.play(quote[2].shift(manim.LEFT))
-        # self.play(quote[4].shift(manim.RIGHT))
-        # self.play(quote[6].shift(manim.RIGHT*2))
-        # self.play(quote[0].animate(run_time=.7).shift(manim.LEFT*2))
-        # self.play(quote[2].animate(run_time=.7).shift(manim.LEFT*.5))
-        # self.play(quote[6].animate(run_time=.7).shift(manim.RIGHT * 2))
-        # self.play(quote[4].animate(run_time=.7).shift(manim.RIGHT * .5))
         animations = [
             quote[0].animate(run_time=.7).shift(manim.LEFT*2),
             quote[2].animate(run_time=.7).shift(manim.LEFT*.5),
@@ -109,10 +136,10 @@ class EncodeText(manim.Scene):
         self.play(manim.AnimationGroup(*animations))
 
         # FADE IN: "F a l l "
-        _quote1 = manim.Text("F").scale(1.7).next_to(quote[0], manim.DOWN*5)
-        _quote2 = manim.Text("a").scale(1.7).next_to(quote[2], manim.DOWN*6)
-        _quote3 = manim.Text("l").scale(1.7).next_to(quote[4], manim.DOWN*5)
-        _quote4 = manim.Text("l").scale(1.7).next_to(quote[6], manim.DOWN*5)
+        _quote1 = manim.Text("F").scale(1.7).next_to(quote[0], manim.DOWN*5).set_color('#3174f0')
+        _quote2 = manim.Text("a").scale(1.7).next_to(quote[2], manim.DOWN*6).set_color('#e53125')
+        _quote3 = manim.Text("l").scale(1.7).next_to(quote[4], manim.DOWN*5).set_color('#fbb003')
+        _quote4 = manim.Text("l").scale(1.7).next_to(quote[6], manim.DOWN*5).set_color('#fbb003')
         self.play(
             manim.ChangeSpeed(
                 manim.FadeIn(_quote1),
@@ -145,7 +172,32 @@ class EncodeText(manim.Scene):
             manim.FadeOut(_quote3),
             manim.FadeOut(_quote4)
         ]
-
         self.play(manim.AnimationGroup(*animations))
+        self.wait(1)
+
+        brace1 = manim.BraceBetweenPoints([-5,-1,0], [5,-1,0], sharpness=0.7)
+        brace1_txt = manim.Text('"encoded"').next_to(brace1, manim.DOWN*3)
+        self.play(manim.GrowFromCenter(brace1))
+        self.play(manim.FadeIn(brace1_txt))
+
+        for i in range(50):
+            # randomly select a different index of the string to change color
+            colors = ['#3174f0','#e53125','#fbb003','#269a43']
+            self.play(
+                manim.ChangeSpeed(
+                    manim.FadeToColor(
+                        brace1_txt[numpy.random.randint(1,8)],
+                        color=numpy.random.choice(colors)
+                    ),
+                    speedinfo={.01:50}
+                )
+            )
+        brace1_txt[1].set_color('#3174f0')
+        brace1_txt[2].set_color('#e53125')
+        brace1_txt[3].set_color('#e53125')
+        brace1_txt[4].set_color('#e53125')
+        brace1_txt[5].set_color('#fbb003')
+        brace1_txt[6].set_color('#fbb003')
+        brace1_txt[7].set_color('#fbb003')
 
         self.wait(3)
