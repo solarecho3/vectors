@@ -314,7 +314,13 @@ class EncodeText(manim.Scene):
 King Henry V: I know thee not, old man. Fall to thy prayers.
 How ill white hairs become a fool and jester!
         """
-        doc1 = manim.Code(code=doc1_text, background="window", language="html", font_size=24)
+        doc1 = manim.Code(
+            code=doc1_text,
+            background="window",
+            language="md",
+            line_no_from=46,
+            style=manim.Code.styles_list[15]
+        )
         self.play(manim.DrawBorderThenFill(doc1))
         self.wait(3)
         animations = [
@@ -324,3 +330,54 @@ How ill white hairs become a fool and jester!
         ]
         self.play(manim.AnimationGroup(*animations))
         self.wait(5)
+
+        # TRANSFORM: doc1 to encoded document
+        doc2_text = """[18 39 50 57 58 39 44 44 10 1 25 63 1 49 47 52 45 6 1 51 63 1 22 53 60 
+43 2 1 21 1 57 54 43 39 49 1 58 53 1 58 46 43 43 6 1 51 63 1 46 43 39 
+56 58 2 1 23 47 52 45 1 20 43 52 56 63 1 34 10 1 21 1 49 52 53 61 1 58
+46 43 43 1 52 53 58 6 1 53 50 42 1 51 39 52 8 1 18 39 50 50 1 58 53 1
+58 46 63 1 54 56 39 63 43 56 57 8 1 20 53 61 1 47 50 50 1 61 46 47 58
+43 1 46 39 47 56 57 1 40 43 41 53 51 43 1 39 1 44 53 53 50 1 39 52 42
+1 48 43 57 58 43 56 2]"""
+        doc2 = manim.Code(
+            code=doc2_text,
+            background="window",
+            language="md",
+            line_no_from=46,
+            style=manim.Code.styles_list[15],
+            font_size=20
+        )
+        # color our encoded string 18 39 50 50
+        doc2[2][3][48:51].set_color(color='#3174f0')
+        doc2[2][3][51:54].set_color(color='#e53125')
+        doc2[2][3][54:60].set_color(color='#fbb003')
+        self.play(manim.ReplacementTransform(doc1, doc2))
+        self.wait(3)
+
+        # now the encoded letters are part of a set
+        # they have spatial meaning, because there
+        # exists some probability distribution
+        # function that describes the likelihood
+        # each token occurs in a certain place
+        # in the document
+        doc2[2][3][57:60].set_color(color='#269a43')
+        self.play(manim.ReplacementTransform(doc1, doc2))
+        self.wait(3)
+
+        doc2_text_ptr = [[],[],[
+            ['18 39 50 57 58 39 44 44 10 1 25 63 1 49 47 52 45 6 1 51 63 1 22 53 60'],
+            ['43 2 1 21 1 57 54 43 39 49 1 58 53 1 58 46 43 43 6 1 51 63 1 46 43 39'],
+            ['56 58 2 1 23 47 52 45 1 20 43 52 56 63 1 34 10 1 21 1 49 52 53 61 1 58'],
+            ['46 43 43 1 52 53 58 6 1 53 50 42 1 51 39 52 8 1 18 39 50 50 1 58 53 1'],
+            ['58 46 63 1 54 56 39 63 43 56 57 8 1 20 53 61 1 47 50 50 1 61 46 47 58'],
+            ['43 1 46 39 47 56 57 1 40 43 41 53 51 43 1 39 1 44 53 53 50 1 39 52 42'],
+            ['1 48 43 57 58 43 56 2']
+        ]]
+        # for loop through doc2_text and randomly color "50"
+        # "each occurrence of the letter 'l' begins to take on its own encoding"
+        for idx,item in enumerate(doc2_text_ptr[2][1]):
+            print(f'evaluating {idx},{item}')
+            if item == "1":
+                doc2[2][1][idx-1:idx+1].set_color(color='#269a43')
+
+        self.wait(3)
