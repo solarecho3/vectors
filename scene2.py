@@ -41,9 +41,9 @@ class EncodeText(manim.Scene):
         # DRAW IN: bounding box while:
         # DRAW IN: selected array
         r1 = manim.Rectangle(width=3.35, height=0.3, color='#ff5370').shift(manim.LEFT * .85 + manim.UP * .135)
-        t0 = manim.Decimal1(
+        t0 = manim.DecimalTable(
             [[52, 45, 1, 20, 43, 52, 56, 63]],
-            row_labels=[manim.MathTex('x')],
+            row_labels=[manim.MathTex('block_1')],
             include_outer_lines=True
         ).next_to(doc2, manim.DOWN*3).scale(.7)
         animations = [
@@ -56,6 +56,7 @@ class EncodeText(manim.Scene):
 
         # MOVE UP: selected array while:
         # FADE UP AND OUT: doc2 encoded document
+        # the selected array is the block, with block size 8
         animations = [
             manim.FadeOut(r1, shift=manim.UP),
             manim.FadeOut(doc2, shift=manim.UP),
