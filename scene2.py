@@ -41,7 +41,7 @@ class EncodeText(manim.Scene):
         # DRAW IN: bounding box while:
         # DRAW IN: selected array
         r1 = manim.Rectangle(width=3.35, height=0.3, color='#ff5370').shift(manim.LEFT * .85 + manim.UP * .135)
-        t0 = manim.DecimalTable(
+        t0 = manim.Decimal1(
             [[52, 45, 1, 20, 43, 52, 56, 63]],
             row_labels=[manim.MathTex('x')],
             include_outer_lines=True

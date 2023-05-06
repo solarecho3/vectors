@@ -103,11 +103,15 @@ class EncodeText(manim.Scene):
         t1.add(t1.get_cell((2, 4), color='#fbb003'))
         t1.add(t1.get_cell((1, 5), color='#fbb003'))
         t1.add(t1.get_cell((2, 5), color='#fbb003'))
-        self.play(manim.Write(t1))
+        t1.get_entries(pos=(1, 2)).set_color('#3174f0')
+        t1.get_entries(pos=(1, 3)).set_color('#e53125')
+        t1.get_entries(pos=(1, 4)).set_color('#fbb003')
+        t1.get_entries(pos=(1, 5)).set_color('#fbb003')
         t1.get_entries(pos=(2, 2)).set_color('#3174f0')
         t1.get_entries(pos=(2, 3)).set_color('#e53125')
         t1.get_entries(pos=(2, 4)).set_color('#fbb003')
         t1.get_entries(pos=(2, 5)).set_color('#fbb003')
+        self.play(manim.Write(t1))
         self.wait(4)
         # self.play(manim.Unwrite(t1))
 
@@ -331,6 +335,7 @@ How ill white hairs become a fool and jester!
         )
         self.play(manim.Write(doc1))
         self.wait(3)
+        self.play(manim.Indicate(doc1[2][2][40:44], color=manim.WHITE, scale_factor=3))
         animations = [
             manim.FadeToColor(doc1[2][2][40], color='#3174f0'),
             manim.FadeToColor(doc1[2][2][41], color='#e53125'),
