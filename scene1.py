@@ -329,7 +329,7 @@ How ill white hairs become a fool and jester!
             line_no_from=46,
             style=manim.Code.styles_list[15]
         )
-        self.play(manim.DrawBorderThenFill(doc1))
+        self.play(manim.Write(doc1))
         self.wait(3)
         animations = [
             manim.FadeToColor(doc1[2][2][40], color='#3174f0'),
@@ -394,9 +394,9 @@ How ill white hairs become a fool and jester!
                     # set the corresponding index in doc2 to a random hex color
                     colors = ['#3174f0', '#e53125', '#fbb003', '#269a43', '#9c27b0', '#607d8b', '#ffcb6b']
                     random_color = numpy.random.choice(colors, replace=False)
-                    self.play(manim.Create(doc2[2][j][idx - 2:idx].set_color(color=random_color), run_time=.025))
+                    self.play(manim.Write(doc2[2][j][idx - 2:idx].set_color(color=random_color), run_time=.025))
                 last_item = item
-            doc2[2][6][0].set_color(color=random_color)
+        doc2[2][6][0].set_color(color=random_color)
 
         self.wait(7)
         self.play(manim.Uncreate(doc2))
