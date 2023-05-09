@@ -1,3 +1,5 @@
-echo Enter scene filename
+echo Enter scene filename: 
 read scenename
-manim -pqh $scenename EncodeText
+echo Class name: 
+read classname
+manim -pqh $scenename $classname
