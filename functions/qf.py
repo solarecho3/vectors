@@ -4,7 +4,11 @@ import asyncio
 
 """ 
 Purpose: 
-    To represent a 3d spacetime point's values oscillate like quantum foam.
+    To represent a 3d spacetime point's values which oscillate like quantum foam. A strong nuclear force will return
+    the point to it's base vacuum state, which increases in attractive strength with the distance squared.
+    
+    Next major version should be a kernel that oscillates across a matrix, comprised of vectors of Point classes
+    with a shared sense of force, as in a fabric.
 
 Theory: 
     A spacetime point in total vacuum will be represented by a 1.0. The value will random "stretch" and "bend" in 
