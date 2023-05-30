@@ -12,7 +12,18 @@ Purpose:
 
 Theory: 
     A spacetime point in total vacuum will be represented by a 1.0. The value will random "stretch" and "bend" in 
-    the three vectors that represent point.
+    the three vectors that represent point. When the kernel is implemented, a matrix of these points could be a fabric
+    that is plucked, and the distance the center point that is plucked travels determines the shape of the matrix. The
+    matrix would grow with the distance. Interesting throught, to try and make the strong nuclear force function
+    responsible for determining the distance between points along oblique vectors across the matrix. How could you
+    encode a sense of weight to a particle, if it is connected by nodes of force across the geometry of the kernel?
+    I suppose the lines of force would be calculated as weights applied to the strong nuclear force, which can break.
+    This makes intuitive sense.
+    
+    If you were to give each spacetime point a tensor which carried these vectors of force across its matrix of
+    connections you could give each point a preference for how it moved in various directions in 3 dimensions. Then
+    things like folds could appear if those lines of force across the matrices could be given a sense of spatial
+    reference to each other.
 
 Considerations:
     How would quantum events be represented in a matrix?
