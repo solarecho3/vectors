@@ -15,6 +15,9 @@ setuptools = "*"
 librosa = "*"
 manim = "*"
 numpy = "*"
+jupyter = "*"
+matplotlib = "*"
+scipy = "*"
 
 [dev-packages]
 

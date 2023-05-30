@@ -41,11 +41,12 @@ class Point:
 
         if self.FORCE_APPLIED:
 
-            self.gv = random.gammavariate(1,.05)
-            self.value = self.value + self.gv
-
-            self.cs = numpy.random.chisquare(df=.1,size=100)[0]
-            self.value = self.value + self.cs
+            # various attempts at a distribution I liked
+            # self.gv = random.gammavariate(1,.05)
+            # self.value = self.value + self.gv
+            #
+            # self.cs = numpy.random.chisquare(df=.1,size=100)[0]
+            # self.value = self.value + self.cs
 
             self.cs = numpy.random.weibull(1.0, size=None)
             self.value = self.value + self.cs
