@@ -1,2 +1,4 @@
+# physics-and-math
 Automated init v0.1
-# physics
+
+- vectors.ipynb: A notebook on vectors in python.
